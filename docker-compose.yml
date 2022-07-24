@@ -14,8 +14,8 @@ services:
     networks:
       - employee-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=Northwind
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
 
 networks:
   employee-mysql:
