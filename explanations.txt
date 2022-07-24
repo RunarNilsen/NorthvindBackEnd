@@ -1,0 +1,20 @@
+1. pull postgresql and create container database in cmd
+    docker pull postgres:13-alpine
+
+2. Make connection between postgre container and db in local
+       docker run -p 5432:5432 -d --name 127.0.0.1 --network java-docker-net -e POSTGRES_PASSWORD=British123 -e POSTGRES_DB=Northwind postgres:13-alpine
+
+3. ON INTELLIJ  clean and install maven to create .jar under target folder
+4. on docker go to project folder where Dockerfile is and create docer image og project
+     docker build -t northwinddemo3 .
+5. Create Docker container from the docker image of the app
+     docker container run --name my-app -p 8080:8090 -d --network java-docker-net northwinddemo3
+
+
+ Docker codes:
+ * docker image ls
+ * docker ps -a
+ * docker stop container_id
+ * docker rmi image_name
+ * docker container rm container_id
+ * docker container restart container_name

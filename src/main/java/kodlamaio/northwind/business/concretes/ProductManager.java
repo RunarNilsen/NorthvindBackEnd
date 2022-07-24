@@ -33,6 +33,7 @@ public class ProductManager implements ProductService {
 
 	@Override
 	public DataResult<List<Product>> getAll() {
+
 		return new SuccessDataResult<List<Product>>(productDao.findAll());
 	}
 

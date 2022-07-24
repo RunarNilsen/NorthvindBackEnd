@@ -1,8 +1,12 @@
 package kodlamaio.northwind.business.concretes;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import kodlamaio.northwind.core.entities.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.northwind.business.abstracts.UserService;
@@ -18,6 +22,8 @@ import kodlamaio.northwind.core.utilities.results.SuccessResult;
 public class UserManager implements UserService {
 	private UserDao userDao;
 
+	Logger logger =  java.util.logging.Logger.getLogger(this.getClass().getName());
+
 	@Autowired
 	public UserManager(final UserDao userDao) {
 		this.userDao = userDao;
@@ -27,7 +33,7 @@ public class UserManager implements UserService {
 	public Result add(final User user) {
 		userDao.save(user);
 
-		return new SuccessResult("User has added.");
+		return new SuccessResult("User has been added.");
 	}
 
 	@Override
@@ -38,6 +44,16 @@ public class UserManager implements UserService {
 			return new ErrorDataResult<User>("User not found.");
 
 		return new SuccessDataResult<User>(user.get());
+	}
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		Optional<User> user = userDao.findByUserName(userName);
+		System.out.println("HERE i user: " + user.toString());
+		logger.info("This is an info message HERE i user:" + user.toString() );
+
+		user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
+
+		return user.map(MyUserDetails::new).get();
 	}
 
 }

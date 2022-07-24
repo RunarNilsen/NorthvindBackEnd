@@ -1,7 +1,7 @@
 package kodlamaio.northwind.core.utilities.results;
 
 public class DataResult<T> extends Result {
-	private final T data;
+	private final T data; // herhangi bir turde data dondurmek icin generic kullandik
 
 	public DataResult(final T data, final boolean success) {
 		super(success);

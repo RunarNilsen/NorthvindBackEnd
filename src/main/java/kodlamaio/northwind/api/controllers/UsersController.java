@@ -14,12 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,6 +26,10 @@ public class UsersController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/mainPage")
+	public String userWelcomePage() {
+		return "Welcome to users page";
+	}
 	@PostMapping("add")
 	public ResponseEntity<?> add(@Valid @RequestBody final User user) {
 		final Result result = userService.add(user);
