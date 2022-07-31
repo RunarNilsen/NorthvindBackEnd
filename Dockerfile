@@ -1,3 +1,5 @@
-FROM openjdk:13-jdk-alpine
-COPY target/northwind-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM maven:3.8.2-jdk-8
+WORKDIR /northwind
+COPY . .
+RUN mvn clean install
+CMD mvn spring-boot:run
